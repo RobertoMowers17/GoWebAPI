@@ -4,12 +4,12 @@ RUN mkdir /build
 WORKDIR /build
 
 RUN export GO111MODULE=on
-RUN go build -o /go/bin/app -v ./...
+RUN go get https://github.com/RobertoMowers17/GoWebAPI/main
+RUN cd /build && git clone https://github.com/RobertoMowers17/GoWebAPI.git
 
 #final stage
-FROM alpine:latest
-RUN apk --no-cache add ca-certificates
-COPY --from=builder /go/bin/app /app
-ENTRYPOINT /app
-LABEL Name=pruebas Version=0.0.1
+RUN cd /build/GoWebAPI/main && go build
+
 EXPOSE 3000
+
+ENTRYPOINT [ "/build/GoWebAPI/main" ]

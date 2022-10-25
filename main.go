@@ -21,4 +21,5 @@ func request(){
 	http.HandleFunc("/",homePage)
 	http.HandleFunc("/aboutme",aboutMe)
 
+	log.Fatal(http.ListenAndServe(":3000",nil))
 }
